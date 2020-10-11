@@ -5,8 +5,8 @@ import OpeningScreen from "./OpeningScreen";
 import $ from "jquery";
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       openingScreen: true,
       points: 0,
@@ -69,8 +69,8 @@ class App extends React.Component {
     if (this.state.openingScreen) {
       return (
         <div>
-          <OpeningScreen />
-          <button onClick={this.toQuestions}>Next</button>
+          <OpeningScreen action={this.toQuestions} />
+          <button onClick={this.toQuestions}>Alohomora</button>
         </div>
       );
     }
@@ -81,7 +81,6 @@ class App extends React.Component {
     }
     return (
       <div>
-        <h2>{this.state.points} Points</h2>
         {question[this.state.currentStep]}
         <button onClick={this.nextQuestion}>Next</button>
       </div>
