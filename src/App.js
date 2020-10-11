@@ -1,35 +1,49 @@
 import React from "react";
 import Question from "./Question";
 import QuestionDataBase from "./QuizzData";
+import OpeningScreen from "./OpeningScreen";
+import $ from "jquery";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      openingScreen: true,
       points: 0,
       currentStep: 0
     };
 
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.toQuestions = this.toQuestions.bind(this);
+  }
+
+  toQuestions() {
+    this.setState(() => {
+      return {
+        openingScreen: false
+      };
+    });
   }
 
   nextQuestion() {
-    let userCheck = parseInt(
-      document.querySelector('input[name="hp-quizz"]:checked').value
-    );
+    let userCheck = parseInt($("input[name='hp-quizz']:checked").val());
+
     if (userCheck === this.rightAnswer()) {
       this.setState(() => {
         return {
-          points: this.state.points + 1
+          points: this.state.points + 1,
+          currentStep: this.state.currentStep + 1
+        };
+      });
+    } else {
+      this.setState(() => {
+        return {
+          currentStep: this.state.currentStep + 1
         };
       });
     }
 
-    this.setState((prevState) => {
-      return {
-        currentStep: prevState.currentStep + 1
-      };
-    });
+    $(this).prop("checked", false);
   }
 
   rightAnswer() {
@@ -52,9 +66,21 @@ class App extends React.Component {
       );
     });
 
+    if (this.state.openingScreen) {
+      return (
+        <div>
+          <OpeningScreen />
+          <button onClick={this.toQuestions}>Next</button>
+        </div>
+      );
+    }
+    if (QuestionDataBase.length === this.state.currentStep) {
+      return (
+        <div>You have collected {this.state.points} points for your house!</div>
+      );
+    }
     return (
       <div>
-        <h1>Lets make some quizz!</h1>
         <h2>{this.state.points} Points</h2>
         {question[this.state.currentStep]}
         <button onClick={this.nextQuestion}>Next</button>

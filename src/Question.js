@@ -12,7 +12,6 @@ function Question(props) {
         <input type="radio" value="3" name="hp-quizz" /> {props.answer_3}
         <br />
         <input type="radio" value="4" name="hp-quizz" /> {props.answer_4}
-        <br />
       </div>
     </div>
   );
