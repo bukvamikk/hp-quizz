@@ -69,8 +69,7 @@ class App extends React.Component {
     if (this.state.openingScreen) {
       return (
         <div>
-          <OpeningScreen action={this.toQuestions} />
-          <button onClick={this.toQuestions}>Alohomora</button>
+          <OpeningScreen toQuestions={this.toQuestions} />
         </div>
       );
     }
