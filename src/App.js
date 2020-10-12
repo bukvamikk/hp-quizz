@@ -2,6 +2,8 @@ import React from "react";
 import Question from "./Question";
 import QuestionDataBase from "./QuizzData";
 import OpeningScreen from "./OpeningScreen";
+import HouseSelector from "./HouseSelector";
+
 import $ from "jquery";
 
 class App extends React.Component {
@@ -10,11 +12,18 @@ class App extends React.Component {
     this.state = {
       openingScreen: true,
       points: 0,
-      currentStep: 0
+      currentStep: 0,
+      house: "gryffindor"
     };
 
     this.nextQuestion = this.nextQuestion.bind(this);
     this.toQuestions = this.toQuestions.bind(this);
+    this.onHouseChange = this.onHouseChange.bind(this);
+  }
+
+  onHouseChange() {
+    console.log("House changed!");
+    this.setState({ house: event.target.value });
   }
 
   toQuestions() {
@@ -68,18 +77,25 @@ class App extends React.Component {
 
     if (this.state.openingScreen) {
       return (
-        <div>
+        <div className="quizz-holder">
+          <HouseSelector
+            value={this.props.house}
+            onHouseChange={this.onHouseChange}
+          />
           <OpeningScreen toQuestions={this.toQuestions} />
         </div>
       );
     }
     if (QuestionDataBase.length === this.state.currentStep) {
       return (
-        <div>You have collected {this.state.points} points for your house!</div>
+        <div className="quizz-holder">
+          <img src={`img/${this.state.house}.jpg`} />
+          You have collected {this.state.points} points for your house!
+        </div>
       );
     }
     return (
-      <div>
+      <div className="quizz-holder">
         {question[this.state.currentStep]}
         <button onClick={this.nextQuestion}>Next</button>
       </div>

@@ -1,4 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+}
 .App {
   font-family: sans-serif;
   text-align: center;
+}
+
+.quizz-holder {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  border: 2px dotted #333;
+  border-radius: 10px;
+  min-height: 250px;
+  width: 360px;
+  height: auto;
+  padding: 10px;
+  margin: 0 auto;
+  margin-top: 25vh;
+}
+
+.quizz-holder img {
+  width: 170px;
+  align-self: center;
 }
